@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1032204032675",
+    "project_id": "help-plus-ba67d",
+    "storage_bucket": "help-plus-ba67d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032204032675:android:593a705f42be44c944fd16",
+        "android_client_info": {
+          "package_name": "com.crumble.helpplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032204032675-u7jbd6bu2asm48lakkvcr7a7sme3btrg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgfU72svUO_JUPRJgALRDMGzMGzOzCVtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032204032675-u7jbd6bu2asm48lakkvcr7a7sme3btrg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
