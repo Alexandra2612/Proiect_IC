@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Help Plus</string>
+    <string name="login_activity_title">Login/Register</string>
+    <string name="login_button">Log in</string>
+    <string name="login_window_title">Help+ login</string>
+    <string name="login_textbox_1">username</string>
+    <string name="login_textbox_1_hint">username</string>
+    <string name="login_textbox_2">password</string>
+    <string name="login_textbox_2_hint">password</string>
+    <string name="login_goto_register">go to register or something</string>
 </resources>
