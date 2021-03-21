@@ -118,7 +118,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:text="@string/login_goto_register"
-                    android:textColor="@color/teal_700" />
+                    android:textColor="@color/teal_700"
+                    android:onClick="goToRegister" />
 
             </LinearLayout>
 
