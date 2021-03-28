@@ -1,5 +1,6 @@
 package com.crumble.helpplus.Controller;
 
+import android.os.Build;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
@@ -8,8 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.crumble.helpplus.R;
+import com.crumble.helpplus.View.LoginActivity;
 import com.crumble.helpplus.View.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,6 +40,7 @@ public class RegisterController {
         registerActivity.registerResponseText.setVisibility(View.VISIBLE);
             registerActivity.registerResponseText.setText(message);
     }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void registerAction(View view, RegisterActivity registerActivity){
         registerActivity.registerUsernameField =(EditText) registerActivity.findViewById(R.id.registerUsernameField);
         registerActivity.registerPasswordField =(EditText) registerActivity.findViewById(R.id.registerPasswordField);
@@ -44,7 +48,7 @@ public class RegisterController {
         Editable email= registerActivity.registerUsernameField.getText();
         Editable password= registerActivity.registerPasswordField.getText();
         if(checkCredentials(registerActivity,email.toString(),password.toString()))
-                registerActivity.mAuth.createUserWithEmailAndPassword(email.toString(), password.toString())
+                registerActivity.mAuth.createUserWithEmailAndPassword(email.toString(), LoginController.hashString(password.toString()))
                     .addOnCompleteListener(registerActivity, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -63,4 +67,5 @@ public class RegisterController {
                         }
                     });
     }
+
 }
