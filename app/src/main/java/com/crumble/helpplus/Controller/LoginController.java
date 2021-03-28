@@ -31,7 +31,7 @@ public class LoginController {
 
         loginActivity.loginUsernameField =(EditText) loginActivity.findViewById(R.id.registerUsernameField);
         loginActivity.loginPasswordField =(EditText) loginActivity.findViewById(R.id.registerPasswordField);
-        loginActivity.loginResponseText =(TextView) loginActivity.findViewById(R.id.loginResponseText);
+        loginActivity.loginResponseText =(TextView) loginActivity.findViewById(R.id.registerResponseText);
         Editable email= loginActivity.loginUsernameField.getText();
         Editable password= loginActivity.loginPasswordField.getText();
 

@@ -93,15 +93,6 @@
                     android:textStyle="italic"
                     android:importantForAutofill="no" />
 
-                <TextView
-                    android:id="@+id/loginResponseText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/login_goto_register"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:visibility="gone" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -128,7 +119,16 @@
                         android:text="@string/register_button"
                         android:textAllCaps="false"
                         tools:ignore="ButtonStyle" />
+
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/registerResponseText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

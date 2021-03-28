@@ -104,7 +104,7 @@
                     android:textAllCaps="false" />
 
                 <TextView
-                    android:id="@+id/loginResponseText"
+                    android:id="@+id/registerResponseText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
