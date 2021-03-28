@@ -2,6 +2,7 @@ package com.crumble.helpplus.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -45,5 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     public void loginAction(View view)
     {
         LoginController.loginAction(this,view);
+    }
+    public void goToRegister(View view)
+    {
+        Intent intent=new Intent(this,RegisterActivity.class);
+        startActivity(intent);
     }
 }

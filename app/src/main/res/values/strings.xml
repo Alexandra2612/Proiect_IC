@@ -8,4 +8,12 @@
     <string name="login_textbox_2">password</string>
     <string name="login_textbox_2_hint">password</string>
     <string name="login_goto_register">go to register or something</string>
+    <string name="register_activity_title">Login/Register</string>
+    <string name="register_button">Register</string>
+    <string name="register_window_title">Help+ register</string>
+    <string name="register_textbox_1">username</string>
+    <string name="register_textbox_1_hint">username</string>
+    <string name="register_textbox_2">password</string>
+    <string name="register_textbox_2_hint">password</string>
+    <string name="register_goto_login">BACK</string>
 </resources>

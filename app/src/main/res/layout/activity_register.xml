@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgr"
-    tools:context=".View.LoginActivity">
-
+    tools:context=".View.RegisterActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,7 +54,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="35dp"
                     android:gravity="center_horizontal"
-                    android:text="@string/login_window_title"
+                    android:text="@string/register_window_title"
                     android:textSize="30sp" />
 
                 <TextView
@@ -94,32 +93,42 @@
                     android:textStyle="italic"
                     android:importantForAutofill="no" />
 
-                <Button
-                    android:id="@+id/registerButton"
-                    android:layout_width="120dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:onClick="loginAction"
-                    android:text="@string/login_button"
-                    android:textAllCaps="false" />
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/backButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:onClick="goToLogin"
+                        android:text="@string/register_goto_login"
+                        android:textAllCaps="false"
+                        tools:ignore="ButtonStyle" />
+
+                    <Button
+                        android:id="@+id/registerButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="40sp"
+                        android:layout_marginLeft="40sp"
+                        android:onClick="registerAction"
+                        android:text="@string/register_button"
+                        android:textAllCaps="false"
+                        tools:ignore="ButtonStyle" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/registerResponseText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="@string/login_goto_register"
                     android:textColor="@android:color/holo_red_dark"
                     android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/loginGoToRegisterText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/login_goto_register"
-                    android:textColor="@color/teal_700"
-                    android:onClick="goToRegister" />
 
             </LinearLayout>
 
