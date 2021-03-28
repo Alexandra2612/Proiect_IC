@@ -17,14 +17,25 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterController {
-    
-    public static void updateUI(final RegisterActivity registerActivity, FirebaseUser user)
+    public static boolean checkCredentials(RegisterActivity registerActivity,String email,String pass){
+        if(email.isEmpty()||pass.isEmpty()){
+            updateUI(registerActivity,"Please fill all fields!");
+            return false;
+        }
+        if(!email.matches(".+@.+\\..{2,}")){
+            updateUI(registerActivity,"Illegal email format");
+            return false;
+        }
+        if(pass.length()<8){
+            updateUI(registerActivity,"Password must have at least 8 characters");
+            return false;
+        }
+        return true;
+    }
+    public static void updateUI(final RegisterActivity registerActivity, String message)
     {
         registerActivity.registerResponseText.setVisibility(View.VISIBLE);
-        if(user!=null)
-            registerActivity.registerResponseText.setText("registered successfully as " + user.getEmail());
-        else
-            registerActivity.registerResponseText.setText("register fail");
+            registerActivity.registerResponseText.setText(message);
     }
     public static void registerAction(View view, RegisterActivity registerActivity){
         registerActivity.registerUsernameField =(EditText) registerActivity.findViewById(R.id.registerUsernameField);
@@ -32,7 +43,7 @@ public class RegisterController {
         registerActivity.registerResponseText =(TextView) registerActivity.findViewById(R.id.registerResponseText);
         Editable email= registerActivity.registerUsernameField.getText();
         Editable password= registerActivity.registerPasswordField.getText();
-        if(!email.toString().isEmpty()&&!password.toString().isEmpty())
+        if(checkCredentials(registerActivity,email.toString(),password.toString()))
                 registerActivity.mAuth.createUserWithEmailAndPassword(email.toString(), password.toString())
                     .addOnCompleteListener(registerActivity, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -41,13 +52,13 @@ public class RegisterController {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("register", "createUserWithEmail:success");
                                 FirebaseUser user = registerActivity.mAuth.getCurrentUser();
-                                RegisterController.updateUI(registerActivity,user);
+                                RegisterController.updateUI(registerActivity,"registered successfully as "+user.getEmail());
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("register", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(registerActivity, "Authentication failed.",
+                                Toast.makeText(registerActivity, "Registration failed.",
                                         Toast.LENGTH_SHORT).show();
-                                RegisterController.updateUI(registerActivity,null);
+                                RegisterController.updateUI(registerActivity,"connection error");
                             }
                         }
                     });
