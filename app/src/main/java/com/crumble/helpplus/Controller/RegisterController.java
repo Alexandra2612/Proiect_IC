@@ -57,6 +57,8 @@ public class RegisterController {
                                 Log.d("register", "createUserWithEmail:success");
                                 FirebaseUser user = registerActivity.mAuth.getCurrentUser();
                                 RegisterController.updateUI(registerActivity,"registered successfully as "+user.getEmail());
+                                LoginActivity.connectedUser=user;
+                                registerActivity.checkLoggedIn();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("register", "createUserWithEmail:failure", task.getException());

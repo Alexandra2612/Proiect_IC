@@ -52,6 +52,8 @@ public class LoginController {
                                 Log.d("login", "signInWithEmail:success");
                                 FirebaseUser user = loginActivity.mAuth.getCurrentUser();
                                 LoginController.updateUI(loginActivity, user);
+                                LoginActivity.connectedUser=user;
+                                loginActivity.checkLoggedIn();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("login", "signInWithEmail:failure", task.getException());

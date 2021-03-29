@@ -16,4 +16,18 @@
     <string name="register_textbox_2">password</string>
     <string name="register_textbox_2_hint">password</string>
     <string name="register_goto_login">BACK</string>
+    <string name="home_activity_title">home</string>
+    <string name="home_button_questions">Intrebari si Situatii</string>
+    <string name="home_button_quiz">Quiz-uri</string>
+    <string name="home_button_routines">Rutine de Invatare</string>
+    <string name="home_button_signout">Sign out</string>
+    <string name="profile_activity_title">Profil</string>
+    <string name="profile_average_grade">Media notelor:</string>
+    <string name="profile_friend_code">Cod unic:</string>
+    <string name="profile_button_photo">Adauga/schimba poza de profil</string>
+    <string name="profile_button_nick">Seteaza nickname</string>
+    <string name="profile_button_friends">Adauga/vezi prieteni</string>
+    <string name="profile_button_back">Back</string>
+    <string name="profile_text_name"></string>
+
 </resources>
