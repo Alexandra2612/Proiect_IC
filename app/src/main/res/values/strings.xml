@@ -16,4 +16,10 @@
     <string name="register_textbox_2">password</string>
     <string name="register_textbox_2_hint">password</string>
     <string name="register_goto_login">BACK</string>
+    <string name="home_activity_title">home</string>
+    <string name="home_button_questions">Intrebari si Situatii</string>
+    <string name="home_button_quiz">Quiz-uri</string>
+    <string name="home_button_routines">Rutine de Invatare</string>
+    <string name="home_button_signout">Sign out</string>
+
 </resources>

@@ -109,7 +109,7 @@
                         tools:ignore="ButtonStyle" />
 
                     <Button
-                        android:id="@+id/registerButton"
+                        android:id="@+id/questionsButton"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
