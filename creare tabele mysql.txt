@@ -1,0 +1,40 @@
+create database helpplus;
+
+use helpplus;
+
+CREATE TABLE `user` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(70) NOT NULL,
+  `nickname` VARCHAR(70) NULL DEFAULT NULL,
+  `image` VARCHAR(200) NULL DEFAULT NULL,
+  `averagegrade` DOUBLE NOT NULL DEFAULT '0.0',
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB;
+
+CREATE TABLE `question`(
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(250) NOT NULL,
+  `varA` VARCHAR(70) NOT NULL,
+  `varB` VARCHAR(70) NOT NULL,
+  `varC` VARCHAR(70) NOT NULL,
+  `varD` VARCHAR(70) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB;
+
+CREATE TABLE `test` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(100) NOT NULL,
+  `questionNo` INT(6) NOT NULL,
+  `questionList` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB;
+
+CREATE TABLE `grade` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `userId` INT(11) NOT NULL,
+  `testId` INT(11) NOT NULL,
+  `value` DOUBLE NULL DEFAULT '0.0',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`userId`) REFERENCES `user`(`id`),
+  FOREIGN KEY (`testId`) REFERENCES `test`(`id`)
+)ENGINE=InnoDB;
