@@ -7,7 +7,7 @@
     <string name="login_textbox_1_hint">username</string>
     <string name="login_textbox_2">password</string>
     <string name="login_textbox_2_hint">password</string>
-    <string name="login_goto_register">go to register or something</string>
+    <string name="login_goto_register">Go to register</string>
     <string name="register_activity_title">Login/Register</string>
     <string name="register_button">Register</string>
     <string name="register_window_title">Help+ register</string>
@@ -15,7 +15,7 @@
     <string name="register_textbox_1_hint">username</string>
     <string name="register_textbox_2">password</string>
     <string name="register_textbox_2_hint">password</string>
-    <string name="register_goto_login">BACK</string>
+    <string name="register_goto_login">Back</string>
     <string name="home_activity_title">home</string>
     <string name="home_button_questions">Intrebari si Situatii</string>
     <string name="home_button_quiz">Quiz-uri</string>
@@ -29,5 +29,13 @@
     <string name="profile_button_friends">Adauga/vezi prieteni</string>
     <string name="profile_button_back">Back</string>
     <string name="profile_text_name"></string>
-
+    <string name="profile_picture_activity_title">Poza de profil</string>
+    <string name="profile_picture_goto_profile">Back</string>
+    <string name="profile_picture_attach_files">Attach files</string>
+    <string name="profile_picture_change_button">CHANGE</string>
+    <string name="nickname_activity_title">Nickname</string>
+    <string name="nickname_type_it">type new nickname</string>
+    <string name="nickname_enter_button">ENTER</string>
+    <string name="nickname_text">NICKNAME:\nChange it now!</string>
+    <string name="nickname_goto_profile">Back</string>
 </resources>
