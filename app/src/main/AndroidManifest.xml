@@ -19,6 +19,9 @@
         <activity android:name=".View.RegisterActivity"></activity>
         <activity android:name=".View.HomeActivity"></activity>
         <activity android:name=".View.ProfileActivity"></activity>
+        <activity android:name=".View.ProfilePictureActivity"></activity>
+        <activity android:name=".View.NicknameActivity"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 </manifest>

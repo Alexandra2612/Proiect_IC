@@ -36,9 +36,9 @@ public class LoginController {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static void loginAction(final LoginActivity loginActivity, View view){
 
-        loginActivity.loginUsernameField =(EditText) loginActivity.findViewById(R.id.registerUsernameField);
-        loginActivity.loginPasswordField =(EditText) loginActivity.findViewById(R.id.registerPasswordField);
-        loginActivity.loginResponseText =(TextView) loginActivity.findViewById(R.id.registerResponseText);
+        loginActivity.loginUsernameField =(EditText) loginActivity.findViewById(R.id.loginUsernameField);
+        loginActivity.loginPasswordField =(EditText) loginActivity.findViewById(R.id.loginPasswordField);
+        loginActivity.loginResponseText =(TextView) loginActivity.findViewById(R.id.loginResponseText);
         Editable email= loginActivity.loginUsernameField.getText();
         Editable password= loginActivity.loginPasswordField.getText();
 
