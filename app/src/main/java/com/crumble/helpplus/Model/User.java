@@ -1,6 +1,15 @@
 package com.crumble.helpplus.Model;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class User {
+    private static User connectedUser;
+    public static User getConnectedUser(){return connectedUser;}
+    public static void setConnectedUser(User u){connectedUser=u;}
+
+    private static FirebaseUser firebaseConnectedUser;
+    public static FirebaseUser getFirebaseConnectedUser(){return firebaseConnectedUser;}
+    public static void setFirebaseConnectedUser(FirebaseUser u){firebaseConnectedUser=u;}
 
     private int id;
     private String email;

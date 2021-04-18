@@ -11,6 +11,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.crumble.helpplus.Model.User;
 import com.crumble.helpplus.R;
 import com.crumble.helpplus.View.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,9 +23,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import static com.crumble.helpplus.Model.User.getFirebaseConnectedUser;
+import static com.crumble.helpplus.Model.User.setConnectedUser;
 
 public class LoginController {
 
@@ -52,7 +63,7 @@ public class LoginController {
                                 Log.d("login", "signInWithEmail:success");
                                 FirebaseUser user = loginActivity.mAuth.getCurrentUser();
                                 LoginController.updateUI(loginActivity, user);
-                                LoginActivity.connectedUser=user;
+                                User.setFirebaseConnectedUser(user);
                                 loginActivity.checkLoggedIn();
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -90,4 +101,59 @@ public class LoginController {
         }
         return hexString.toString();
     }
+
+    public static void setConnectedUserData(RequestQueue queue)
+    {
+        String url ="https://86.123.241.117/?action=get&object=userdatabyemail&email="+getFirebaseConnectedUser().getEmail();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET, url,
+                null,
+                response -> {
+                    try{
+                        if(response.length()==0) {
+                            Log.d("Volley","User not found in database");
+                            addNewUser(queue);
+                        }
+                        else
+                            for(int i=0;i<response.length();i++){
+                                JSONObject user = response.getJSONObject(i);
+                                User u=new User();
+                                u.setId(user.getInt("id"));
+                                u.setEmail(user.getString("email"));
+                                u.setNickname(user.getString("nickname"));
+                                u.setImage(user.getString("image"));
+                                u.setAverageGrade(user.getDouble("averagegrade"));
+                                setConnectedUser(u);
+                                Log.d("Volley","User "+u.getEmail()+" connected");
+                            }
+                    }catch (JSONException e){
+                        Log.e("Volley","Response from database incomplete");
+                    }
+                },
+                error -> Log.e("Volley",error.getMessage()));
+        queue.add(jsonArrayRequest);
+    }
+
+    public static void addNewUser(RequestQueue queue)
+    {
+        String url ="https://86.123.241.117/?action=create&object=user&email="+getFirebaseConnectedUser().getEmail();
+        Log.d("Volley","Creating user in mysql");
+
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.GET, url,
+                (String response) -> {
+                    if(response.equals("user added")) {
+                        Log.d("Volley", "Registration to mysql complete");
+                        setConnectedUserData(queue);
+                    }
+                    else {
+                        Log.d("Volley", response);
+                        Log.e("Volley", "User could not be registered to database");
+                    }
+                },
+                error -> {Log.e("Volley",error.getMessage());});
+        queue.add(stringRequest);
+    }
+
 }

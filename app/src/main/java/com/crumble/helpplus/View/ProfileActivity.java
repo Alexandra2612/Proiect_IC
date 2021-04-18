@@ -38,6 +38,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import static com.crumble.helpplus.Model.User.getConnectedUser;
+
 public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser firebaseConnectedUser;
     private ImageView profileIcon;
@@ -45,49 +47,23 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView gradeText;
     private TextView idText;
 
-    private User connectedUser= new User();
-    public void setConnectedUserData()
-    {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://86.123.241.117/?action=get&object=userdatabyemail&email="+firebaseConnectedUser.getEmail();
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET, url,
-                null,
-                response -> {
-                    try{
-                        for(int i=0;i<response.length();i++){
-                            JSONObject user = response.getJSONObject(i);
-                            connectedUser.setId(user.getInt("id"));
-                            connectedUser.setEmail(user.getString("email"));
-                            connectedUser.setNickname(user.getString("nickname"));
-                            connectedUser.setImage(user.getString("image"));
-                            connectedUser.setAverageGrade(user.getDouble("averagegrade"));
-                            usernameText.setText(connectedUser.getNickname());
-                            gradeText.setText(gradeText.getText()+" "+(((Double)connectedUser.getAverageGrade()).toString()));
-                            idText.setText(idText.getText()+" "+(((Integer)connectedUser.getId()).toString())+"  ");
-                        }
-                    }catch (JSONException e){
-                        e.printStackTrace();
-                    }
-                },
-                error -> Log.e("Volley",error.getMessage()));
-        queue.add(jsonArrayRequest);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        handleSSLHandshake();
-        firebaseConnectedUser = LoginActivity.connectedUser;
-        setConnectedUserData();
+
+        firebaseConnectedUser = User.getFirebaseConnectedUser();
         setContentView(R.layout.activity_profile);
         profileIcon=(ImageView)this.findViewById(R.id.profileIcon);
-        profileIcon.setImageResource(R.drawable.profile_base);
         usernameText=(TextView)this.findViewById(R.id.usernameText);
         gradeText=(TextView)this.findViewById(R.id.gradeText);
         idText=(TextView)this.findViewById(R.id.idText);
-        usernameText.setText("");
 
+        profileIcon.setImageResource(R.drawable.profile_base);
+
+        usernameText.setText(getConnectedUser().getNickname());
+        gradeText.setText(gradeText.getText()+" "+(((Double)getConnectedUser().getAverageGrade()).toString()));
+        idText.setText(idText.getText()+" "+(((Integer)getConnectedUser().getId()).toString())+"  ");
 
 
     }
@@ -100,35 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    @SuppressLint("TrulyRandom")
-    public static void handleSSLHandshake() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }
 
-                @Override
-                public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                }
-
-                @Override
-                public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                }
-            }};
-
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String arg0, SSLSession arg1) {
-                    return true;
-                }
-            });
-        } catch (Exception ignored) {
-        }
-    }
 
 
     public void goToHome(View view)
