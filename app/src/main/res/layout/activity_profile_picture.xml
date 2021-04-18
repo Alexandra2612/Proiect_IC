@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgr"
+    tools:context=".View.ProfilePictureActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/activityName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:ems="10"
+            android:gravity="end"
+            android:importantForAutofill="no"
+            android:text="@string/profile_picture_activity_title"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/activityLine"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/black" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="290dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            app:cardBackgroundColor="#cc999999">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/profilePic"
+                    android:layout_width="280dp"
+                    android:layout_height="239dp"
+                    app:srcCompat="@drawable/profile_base" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/attachFilesButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:onClick="selectPicture"
+                        android:text="@string/profile_picture_attach_files"
+                        android:textAllCaps="false"
+                        tools:ignore="ButtonStyle" />
+
+                    <Button
+                        android:id="@+id/pictureChangeButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="40sp"
+                        android:layout_marginLeft="40sp"
+                        android:onClick="changePicture"
+                        android:text="@string/profile_picture_change_button"
+                        android:textAllCaps="false"
+                        tools:ignore="ButtonStyle" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/pictureBackButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginEnd="58dp"
+            android:layout_marginRight="58dp"
+            android:onClick="goToProfile"
+            android:text="@string/profile_picture_goto_profile" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

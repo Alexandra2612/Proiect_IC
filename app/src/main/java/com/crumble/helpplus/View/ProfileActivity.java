@@ -136,5 +136,14 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent=new Intent(this,HomeActivity.class);
         startActivity(intent);
     }
-
+    public void goToChangePicture(View view)
+    {
+        Intent intent=new Intent(this,ProfilePictureActivity.class);
+        startActivity(intent);
+    }
+    public void goToSetNickname(View view)
+    {
+        Intent intent=new Intent(this,NicknameActivity.class);
+        startActivity(intent);
+    }
 }
