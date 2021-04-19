@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.crumble.helpplus.Model.User;
 import com.crumble.helpplus.R;
 import com.crumble.helpplus.View.LoginActivity;
 import com.crumble.helpplus.View.RegisterActivity;
@@ -57,7 +58,7 @@ public class RegisterController {
                                 Log.d("register", "createUserWithEmail:success");
                                 FirebaseUser user = registerActivity.mAuth.getCurrentUser();
                                 RegisterController.updateUI(registerActivity,"registered successfully as "+user.getEmail());
-                                LoginActivity.connectedUser=user;
+                                User.setFirebaseConnectedUser(user);
                                 registerActivity.checkLoggedIn();
                             } else {
                                 // If sign in fails, display a message to the user.

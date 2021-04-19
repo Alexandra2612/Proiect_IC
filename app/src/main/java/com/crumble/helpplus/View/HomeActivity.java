@@ -1,10 +1,12 @@
 package com.crumble.helpplus.View;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -14,21 +16,42 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.crumble.helpplus.Controller.LoginController;
+import com.crumble.helpplus.Model.User;
 import com.crumble.helpplus.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import static com.crumble.helpplus.Model.User.setConnectedUser;
+
 public class HomeActivity extends AppCompatActivity {
-    private FirebaseUser connectedUser;
+
     private ImageView profileIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         profileIcon=(ImageView)this.findViewById(R.id.profileIcon);
         profileIcon.setImageResource(R.drawable.profile_base);
     }
@@ -36,7 +59,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        connectedUser = LoginActivity.connectedUser;
         //update UI
 
     }
@@ -54,6 +76,7 @@ public class HomeActivity extends AppCompatActivity {
     public void signoutAction(View view)
     {
         FirebaseAuth.getInstance().signOut();
+        setConnectedUser(null);
         goToLogin();
     }
 
