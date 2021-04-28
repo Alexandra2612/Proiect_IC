@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.crumble.helpplus.Controller.ProfilePictureController;
 import com.crumble.helpplus.R;
 import com.google.android.gms.common.internal.Constants;
 
@@ -46,6 +47,7 @@ public class ProfilePictureActivity extends AppCompatActivity {
     }
 
     public void changePicture(View view) {
+        ProfilePictureController.changePicture(picturePath);
         //use the picturePath to get picture and save it on database. -- if path is not null
     }
 

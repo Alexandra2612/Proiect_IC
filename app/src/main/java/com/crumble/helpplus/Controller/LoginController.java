@@ -32,6 +32,7 @@ import java.security.NoSuchAlgorithmException;
 
 import static com.crumble.helpplus.Model.User.getFirebaseConnectedUser;
 import static com.crumble.helpplus.Model.User.setConnectedUser;
+import static com.crumble.helpplus.View.LoginActivity.IP;
 
 public class LoginController {
 
@@ -104,7 +105,7 @@ public class LoginController {
 
     public static void setConnectedUserData(RequestQueue queue)
     {
-        String url ="https://86.123.241.117/?action=get&object=userdatabyemail&email="+getFirebaseConnectedUser().getEmail();
+        String url ="https://"+IP+"/?action=get&object=userdatabyemail&email="+getFirebaseConnectedUser().getEmail();
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET, url,
@@ -137,7 +138,7 @@ public class LoginController {
 
     public static void addNewUser(RequestQueue queue)
     {
-        String url ="https://86.123.241.117/?action=create&object=user&email="+getFirebaseConnectedUser().getEmail();
+        String url ="https://"+IP+"/?action=create&object=user&email="+getFirebaseConnectedUser().getEmail();
         Log.d("Volley","Creating user in mysql");
 
         StringRequest stringRequest = new StringRequest(
