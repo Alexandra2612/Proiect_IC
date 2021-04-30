@@ -46,7 +46,7 @@ import static com.crumble.helpplus.Model.User.setConnectedUser;
 import static com.crumble.helpplus.Model.User.setFirebaseConnectedUser;
 
 public class LoginActivity extends AppCompatActivity {
-    public static String IP="79.114.249.175";
+    public static String IP="79.115.193.12";
     public EditText loginUsernameField;
     public EditText loginPasswordField;
     public TextView loginResponseText;
