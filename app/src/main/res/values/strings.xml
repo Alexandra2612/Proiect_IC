@@ -43,5 +43,10 @@
     <string name="friends_type_it">type code</string>
     <string name="friends_enter_button">ADD</string>
     <string name="friends_goto_profile">Back</string>
+    <string name="friend_page_activity_title">Pofil prieten</string>
+    <string name="profile_friend_code_1">Cod unic:</string>
+    <string name="profile_text_name_1"></string>
+    <string name="profile_average_grade_1">Media notelor:</string>
+    <string name="profile_button_back_1">Back</string>
 
 </resources>

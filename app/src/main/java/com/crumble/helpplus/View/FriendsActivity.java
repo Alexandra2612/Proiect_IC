@@ -149,7 +149,8 @@ public class FriendsActivity extends AppCompatActivity {
     }
     public void goToFriendProfile(User user){
         friendUser=user;
-        //stuff with intent here
+        Intent intent=new Intent(this,FriendPageActivity.class);
+        startActivity(intent);
         Log.d("user",friendUser.toString());
     }
 }
