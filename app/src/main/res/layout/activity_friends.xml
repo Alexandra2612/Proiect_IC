@@ -96,6 +96,7 @@
                 android:background="#805E5C5C">
 
                 <LinearLayout
+                    android:id="@+id/friendsLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
