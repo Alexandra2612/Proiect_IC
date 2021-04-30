@@ -16,7 +16,7 @@
     <string name="register_textbox_2">password</string>
     <string name="register_textbox_2_hint">password</string>
     <string name="register_goto_login">Back</string>
-    <string name="home_activity_title">home</string>
+    <string name="home_activity_title">Home</string>
     <string name="home_button_questions">Intrebari si Situatii</string>
     <string name="home_button_quiz">Quiz-uri</string>
     <string name="home_button_routines">Rutine de Invatare</string>
@@ -38,4 +38,10 @@
     <string name="nickname_enter_button">ENTER</string>
     <string name="nickname_text">NICKNAME:\nChange it now!</string>
     <string name="nickname_goto_profile">Back</string>
+    <string name="friends_activity_title">Prieteni</string>
+    <string name="friends_text">Search friends!\nEnter their code:</string>
+    <string name="friends_type_it">type code</string>
+    <string name="friends_enter_button">ADD</string>
+    <string name="friends_goto_profile">Back</string>
+
 </resources>

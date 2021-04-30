@@ -1,6 +1,9 @@
 package com.crumble.helpplus.Model;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseUser;
+import java.util.*;
 
 public class User {
     private static User connectedUser;
@@ -15,14 +18,17 @@ public class User {
     private String email;
     private String nickname;
     private String image;
+    private List<String> friends;
     private double averageGrade;
 
-    public User(int id, String email, String nickname, String image, float averageGrade) {
+    public User(int id, String email, String nickname, String image, float averageGrade,String friends) {
         this.id = id;
         this.email = email;
         this.nickname = nickname;
         this.image = image;
         this.averageGrade = averageGrade;
+        String str[] = friends.split(",");
+        this.friends= Arrays.asList(str);
     }
 
     public User() {}
@@ -65,5 +71,19 @@ public class User {
 
     public void setAverageGrade(double averageGrade) {
         this.averageGrade = averageGrade;
+    }
+
+    public List<String> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(String friends) {
+        try {
+            String str[] = friends.split(",");
+            this.friends = Arrays.asList(str);
+        }catch(NullPointerException e){
+            this.friends=Collections.emptyList();
+        }
+
     }
 }

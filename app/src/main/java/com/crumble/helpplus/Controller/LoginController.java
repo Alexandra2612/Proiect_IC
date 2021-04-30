@@ -125,6 +125,8 @@ public class LoginController {
                                 u.setNickname(user.getString("nickname"));
                                 u.setImage(user.getString("image"));
                                 u.setAverageGrade(user.getDouble("averagegrade"));
+                                u.setFriends(user.getString("friends"));
+                                Log.e("friends",u.getFriends().toString()+" friends");
                                 setConnectedUser(u);
                                 Log.d("Volley","User "+u.getEmail()+" connected");
                             }
