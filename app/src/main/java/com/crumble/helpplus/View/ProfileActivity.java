@@ -94,4 +94,9 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent=new Intent(this,NicknameActivity.class);
         startActivity(intent);
     }
+    public void goToFriends(View view)
+    {
+        Intent intent=new Intent(this,FriendsActivity.class);
+        startActivity(intent);
+    }
 }

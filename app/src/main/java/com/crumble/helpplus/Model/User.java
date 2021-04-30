@@ -18,7 +18,7 @@ public class User {
     private String email;
     private String nickname;
     private String image;
-    private List<String> friends;
+    private ArrayList<String> friends = new ArrayList<String>();
     private double averageGrade;
 
     public User(int id, String email, String nickname, String image, float averageGrade,String friends) {
@@ -28,7 +28,19 @@ public class User {
         this.image = image;
         this.averageGrade = averageGrade;
         String str[] = friends.split(",");
-        this.friends= Arrays.asList(str);
+        Collections.addAll(this.friends,str);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", image='" + image + '\'' +
+                ", friends=" + friends +
+                ", averageGrade=" + averageGrade +
+                '}';
     }
 
     public User() {}
@@ -80,9 +92,9 @@ public class User {
     public void setFriends(String friends) {
         try {
             String str[] = friends.split(",");
-            this.friends = Arrays.asList(str);
+            Collections.addAll(this.friends,str);
         }catch(NullPointerException e){
-            this.friends=Collections.emptyList();
+            this.friends=new ArrayList<String>();
         }
 
     }

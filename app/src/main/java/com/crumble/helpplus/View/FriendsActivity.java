@@ -100,6 +100,8 @@ public class FriendsActivity extends AppCompatActivity {
         TextView friendsResponseText=(TextView)this.findViewById(R.id.friendsResponseText);
         friendsResponseText.setText(text);
         friendsResponseText.setVisibility(View.VISIBLE);
+        friendsList.removeAllViews();
+        getList(queue);
     }
     public void getList(RequestQueue queue){
         String url ="https://"+IP+"/?action=getall&object=userfriendsbyemail&email="+getConnectedUser().getEmail();
@@ -122,9 +124,9 @@ public class FriendsActivity extends AppCompatActivity {
                                 u.setImage(user.getString("image"));
                                 u.setAverageGrade(user.getDouble("averagegrade"));
                                 u.setFriends(user.getString("friends"));
-                                Log.e("friends",u.getFriends().toString()+" friends");
+                                Log.d("friends","friends: "+u.getFriends().toString());
                                 addUserToList(u);
-                                Log.d("Volley","User "+u.getEmail()+" connected");
+                                Log.d("Volley","User "+u.getEmail()+" added to friends");
                             }
                     }catch (JSONException e){
                         Log.e("Volley","Response from database incomplete");
@@ -136,6 +138,7 @@ public class FriendsActivity extends AppCompatActivity {
     public void addUserToList(User user){
         TextView userText=new TextView(this);
         userText.setText(user.getNickname());
+        userText.setTextSize(25);
         userText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
