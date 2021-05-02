@@ -23,6 +23,11 @@
         <activity android:name=".View.NicknameActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".View.FriendsActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".View.FriendPageActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".View.QuestionsActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".View.RoutinesActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".View.QuizActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".View.QuizesActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".View.QuestionActivity" android:screenOrientation="portrait"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
