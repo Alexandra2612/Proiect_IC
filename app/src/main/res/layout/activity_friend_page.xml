@@ -44,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:textSize="25sp"
                 android:layout_weight="0"
                 android:gravity="end"
                 android:text="@string/profile_friend_code_1" />
@@ -64,6 +65,7 @@
         <TextView
             android:id="@+id/usernameText1"
             android:layout_width="match_parent"
+            android:textSize="25sp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/profile_text_name_1" />
@@ -72,6 +74,7 @@
             android:id="@+id/gradeText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="25sp"
             android:layout_marginTop="30dp"
             android:layout_weight="0"
             android:gravity="center"

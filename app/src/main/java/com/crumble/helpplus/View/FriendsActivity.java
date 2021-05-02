@@ -100,8 +100,11 @@ public class FriendsActivity extends AppCompatActivity {
         TextView friendsResponseText=(TextView)this.findViewById(R.id.friendsResponseText);
         friendsResponseText.setText(text);
         friendsResponseText.setVisibility(View.VISIBLE);
-        friendsList.removeAllViews();
-        getList(queue);
+        if(text.contains("success"))
+        {
+            friendsList.removeAllViews();
+            getList(queue);
+        }
     }
     public void getList(RequestQueue queue){
         String url ="https://"+IP+"/?action=getall&object=userfriendsbyemail&email="+getConnectedUser().getEmail();
@@ -126,7 +129,6 @@ public class FriendsActivity extends AppCompatActivity {
                                 u.setFriends(user.getString("friends"));
                                 Log.d("friends","friends: "+u.getFriends().toString());
                                 addUserToList(u);
-                                Log.d("Volley","User "+u.getEmail()+" added to friends");
                             }
                     }catch (JSONException e){
                         Log.e("Volley","Response from database incomplete");
