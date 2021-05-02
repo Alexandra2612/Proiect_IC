@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
@@ -46,7 +49,7 @@ import static com.crumble.helpplus.Model.User.setConnectedUser;
 import static com.crumble.helpplus.Model.User.setFirebaseConnectedUser;
 
 public class LoginActivity extends AppCompatActivity {
-    public static String IP="79.114.249.175";
+    public static String IP="79.115.193.12";
     public EditText loginUsernameField;
     public EditText loginPasswordField;
     public TextView loginResponseText;
@@ -144,6 +147,5 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
 }
+

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,19 +42,24 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import static com.crumble.helpplus.Model.User.getConnectedUser;
 import static com.crumble.helpplus.Model.User.setConnectedUser;
+import static com.crumble.helpplus.View.ProfileActivity.LoadImageFromWebOperations;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ImageView profileIcon;
-
+    private Drawable profileImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        profileIcon=(ImageView)this.findViewById(R.id.profileIcon);
-        profileIcon.setImageResource(R.drawable.profile_base);
+        profileIcon=(ImageView)findViewById(R.id.profileIcon);
+        Thread t = new Thread(()->{
+            profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
+            profileIcon.post(()->{profileIcon.setImageDrawable(profileImage);});
+        });
+        t.start();
     }
 
     @Override
