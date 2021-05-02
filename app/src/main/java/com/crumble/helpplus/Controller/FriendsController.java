@@ -13,7 +13,7 @@ import static com.crumble.helpplus.View.LoginActivity.IP;
 
 public class FriendsController {
     public static void addFriends(FriendsActivity activity, RequestQueue queue, String code){
-        if(!getConnectedUser().getFriends().contains(code)){
+        if((!getConnectedUser().getFriends().contains(code)) && ((Integer.parseInt(code))!=getConnectedUser().getId())){
             String url ="https://"+IP+"/?action=update&object=userfriendlistbyemail&email="+getFirebaseConnectedUser().getEmail()+"&friendcode="+code;
             Log.d("Volley","Adding friend in mysql");
             StringRequest stringRequest = new StringRequest(
@@ -32,9 +32,10 @@ public class FriendsController {
                     },
                     error -> {Log.e("Volley",error.getMessage());});
             queue.add(stringRequest);
-        }else
-            Log.d("Volley","Friend already exist in mysql");
-
+        }else {
+            Log.d("Volley", "Friend already exist in mysql or is self");
+            activity.updateUI("Friend could not be added :(");
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 package com.crumble.helpplus.View;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import static com.crumble.helpplus.Model.User.getConnectedUser;
 import static com.crumble.helpplus.View.FriendsActivity.friendUser;
+import static com.crumble.helpplus.View.ProfileActivity.LoadImageFromWebOperations;
 
 public class FriendPageActivity extends AppCompatActivity {
     private FirebaseUser firebaseConnectedUser;
@@ -35,6 +37,18 @@ public class FriendPageActivity extends AppCompatActivity {
         idText1=(TextView)this.findViewById(R.id.idText1);
 
         profileIcon1.setImageResource(R.drawable.profile_base);
+        if(friendUser.getImage()=="null")
+            profileIcon1.setImageResource(R.drawable.profile_base);
+        else {
+            Thread t = new Thread(() -> {
+                Drawable profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
+                profileIcon1.post(() -> {
+                    profileIcon1.setImageDrawable(profileImage);
+                });
+            });
+            t.start();
+        }
+
 
         usernameText1.setText(friendUser.getNickname());
         gradeText1.setText(gradeText1.getText()+" "+(((Double)friendUser.getAverageGrade()).toString()));
