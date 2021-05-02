@@ -45,6 +45,7 @@ import static com.crumble.helpplus.View.ProfileActivity.LoadImageFromWebOperatio
 public class ProfilePictureActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMAGE = 1;
     private String picturePath;
+    private String pictureURL;
     private RequestQueue queue;
     private Drawable profileImage = null;
     private ImageView myImage;
@@ -56,13 +57,19 @@ public class ProfilePictureActivity extends AppCompatActivity {
         handleSSLHandshake();
         setContentView(R.layout.activity_profile_picture);
         myImage = (ImageView) findViewById(R.id.profilePic);
-        picturePath = getConnectedUser().getImage();
+        pictureURL = getConnectedUser().getImage();
 
-        Thread t = new Thread(()->{
-            profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
-            myImage.post(()->{myImage.setImageDrawable(profileImage);});
-        });
-        t.start();
+        if(getConnectedUser().getImage()=="null")
+            myImage.setImageResource(R.drawable.profile_base);
+        else {
+            Thread t = new Thread(() -> {
+                profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
+                myImage.post(() -> {
+                    myImage.setImageDrawable(profileImage);
+                });
+            });
+            t.start();
+        }
     }
 
     @Override
@@ -77,7 +84,7 @@ public class ProfilePictureActivity extends AppCompatActivity {
     }
 
     public void changePicture(View view) {
-        ProfilePictureController.changePicture(this,queue,picturePath);
+        ProfilePictureController.changePicture(this,queue,pictureURL);
         //use the picturePath to get picture and save it on database. -- if path is not null
     }
 

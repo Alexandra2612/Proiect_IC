@@ -54,12 +54,21 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        profileIcon=(ImageView)findViewById(R.id.profileIcon);
-        Thread t = new Thread(()->{
-            profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
-            profileIcon.post(()->{profileIcon.setImageDrawable(profileImage);});
-        });
-        t.start();
+        profileIcon=(ImageView)findViewById(R.id.homeProfileIcon);
+
+        Log.d("user",getConnectedUser().toString());
+
+        if(getConnectedUser().getImage()=="null")
+            profileIcon.setImageResource(R.drawable.profile_base);
+        else {
+            Thread t = new Thread(() -> {
+                profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
+                profileIcon.post(() -> {
+                    profileIcon.setImageDrawable(profileImage);
+                });
+            });
+            t.start();
+        }
     }
 
     @Override

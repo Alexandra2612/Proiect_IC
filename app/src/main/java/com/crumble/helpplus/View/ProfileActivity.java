@@ -67,12 +67,17 @@ public class ProfileActivity extends AppCompatActivity {
         gradeText=(TextView)this.findViewById(R.id.gradeText);
         idText=(TextView)this.findViewById(R.id.idText);
 
-        Thread t = new Thread(()->{
-            profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
-            profileIcon.post(()->{profileIcon.setImageDrawable(profileImage);});
-        });
-        t.start();
-
+        if(getConnectedUser().getImage()=="null")
+            profileIcon.setImageResource(R.drawable.profile_base);
+        else {
+            Thread t = new Thread(() -> {
+                profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
+                profileIcon.post(() -> {
+                    profileIcon.setImageDrawable(profileImage);
+                });
+            });
+            t.start();
+        }
         usernameText.setText(getConnectedUser().getNickname());
         gradeText.setText(gradeText.getText()+" "+(((Double)getConnectedUser().getAverageGrade()).toString()));
         idText.setText(idText.getText()+" "+(((Integer)getConnectedUser().getId()).toString())+"  ");

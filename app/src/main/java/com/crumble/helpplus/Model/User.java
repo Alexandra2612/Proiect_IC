@@ -27,6 +27,17 @@ public class User {
 
     public User() {}
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", image='" + image + '\'' +
+                ", averageGrade=" + averageGrade +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
