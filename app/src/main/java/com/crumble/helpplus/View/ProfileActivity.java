@@ -121,4 +121,9 @@ public class ProfileActivity extends AppCompatActivity {
             return null;
         }
     }
+    public void goToFriends(View view)
+    {
+        Intent intent=new Intent(this,FriendsActivity.class);
+        startActivity(intent);
+    }
 }

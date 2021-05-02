@@ -23,7 +23,7 @@ public class NicknameController {
                     if(response.equals("user data changed successfully")) {
                         getConnectedUser().setNickname(nickname);
                         Log.d("Volley", "Nickname changed in mysql complete");
-                        activity.updateUI("Nickname changed succesfully!");
+                        activity.updateUI("Nickname changed successfully!");
                     }
                     else {
                         Log.d("Volley", response);
