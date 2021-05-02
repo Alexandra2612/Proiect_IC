@@ -13,7 +13,7 @@ import static com.crumble.helpplus.Model.User.getFirebaseConnectedUser;
 import static com.crumble.helpplus.View.LoginActivity.IP;
 
 public class ProfilePictureController {
-    public static void changePicture(ProfilePictureActivity activity, RequestQueue queue, String image){
+    public static void savePicture(ProfilePictureActivity activity, RequestQueue queue, String image){
             String url ="https://"+IP+"/?action=update&object=userimagebyemail&email="+getFirebaseConnectedUser().getEmail()+"&image="+image;
             Log.d("Volley","Changing nickname in mysql");
 

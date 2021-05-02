@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,10 +25,14 @@ import com.android.volley.toolbox.Volley;
 import com.crumble.helpplus.Controller.LoginController;
 import com.crumble.helpplus.Model.User;
 import com.crumble.helpplus.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,7 +54,6 @@ import static com.crumble.helpplus.View.ProfileActivity.LoadImageFromWebOperatio
 public class HomeActivity extends AppCompatActivity {
 
     private ImageView profileIcon;
-    private Drawable profileImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,18 +62,32 @@ public class HomeActivity extends AppCompatActivity {
 
         Log.d("user",getConnectedUser().toString());
 
-        if(getConnectedUser().getImage()=="null")
-            profileIcon.setImageResource(R.drawable.profile_base);
-        else {
-            Thread t = new Thread(() -> {
-                profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
-                profileIcon.post(() -> {
-                    profileIcon.setImageDrawable(profileImage);
-                });
-            });
-            t.start();
-        }
+        setProfPic();
+
     }
+
+    public void setProfPic()
+    {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference islandRef = storageRef.child(getConnectedUser().getImage());
+
+        final long TEN_MEGABYTE = 1024 * 1024 * 10;
+        islandRef.getBytes(TEN_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                profileIcon.setImageBitmap(Bitmap.createScaledBitmap(bmp, profileIcon.getWidth(), profileIcon.getHeight(), false));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                profileIcon.setImageResource(R.drawable.profile_base);
+            }
+        });
+
+    }
+
 
     @Override
     public void onStart() {

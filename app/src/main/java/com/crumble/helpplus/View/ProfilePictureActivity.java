@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -27,6 +28,11 @@ import com.android.volley.toolbox.Volley;
 import com.crumble.helpplus.Controller.ProfilePictureController;
 import com.crumble.helpplus.R;
 import com.google.android.gms.common.internal.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -45,10 +51,9 @@ import static com.crumble.helpplus.View.ProfileActivity.LoadImageFromWebOperatio
 public class ProfilePictureActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMAGE = 1;
     private String picturePath;
-    private String pictureURL;
     private RequestQueue queue;
-    private Drawable profileImage = null;
     private ImageView myImage;
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         checkPermission("android.permission.READ_EXTERNAL_STORAGE",100);
@@ -56,20 +61,32 @@ public class ProfilePictureActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         handleSSLHandshake();
         setContentView(R.layout.activity_profile_picture);
-        myImage = (ImageView) findViewById(R.id.profilePic);
-        pictureURL = getConnectedUser().getImage();
 
-        if(getConnectedUser().getImage()=="null")
-            myImage.setImageResource(R.drawable.profile_base);
-        else {
-            Thread t = new Thread(() -> {
-                profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
-                myImage.post(() -> {
-                    myImage.setImageDrawable(profileImage);
-                });
-            });
-            t.start();
-        }
+        picturePath = null;
+
+        myImage = (ImageView) findViewById(R.id.profilePic);
+        setProfPic();
+    }
+
+    public void setProfPic()
+    {
+        StorageReference storageRef = storage.getReference();
+        StorageReference islandRef = storageRef.child(getConnectedUser().getImage());
+
+        final long TEN_MEGABYTE = 1024 * 1024 * 10;
+        islandRef.getBytes(TEN_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                myImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, myImage.getWidth(), myImage.getHeight(), false));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                myImage.setImageResource(R.drawable.profile_base);
+            }
+        });
+
     }
 
     @Override
@@ -83,9 +100,37 @@ public class ProfilePictureActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void changePicture(View view) {
-        ProfilePictureController.changePicture(this,queue,pictureURL);
-        //use the picturePath to get picture and save it on database. -- if path is not null
+    public void changePicture(View view)
+    {
+        StorageReference storageRef = storage.getReference();
+        if(picturePath!=null) {
+            Uri file = Uri.fromFile(new File(picturePath));
+            StorageReference profileRef = storageRef.child("profile/"+ String.valueOf(getConnectedUser().getId()) + picturePath.substring(picturePath.lastIndexOf('.')));
+            UploadTask uploadTask = profileRef.putFile(file);
+            // Register observers to listen for when the download is done or if it fails
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                    Log.d("firebase", "image could not be saved to firebase");
+                    updateUI("Image could not be changed :(");
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.d("firebase", "image could not be saved to firebase");
+                    String image="profile/"+ String.valueOf(getConnectedUser().getId()) + picturePath.substring(picturePath.lastIndexOf('.'));
+                    savePicture(view,image);
+                }
+            });
+        }
+        else
+            updateUI("Please select a picture");
+    }
+
+    public void savePicture(View view, String url) {
+        ProfilePictureController.savePicture(this,queue,url);
+        setProfPic();
     }
 
     public void selectPicture(View view) {

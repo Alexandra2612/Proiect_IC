@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -23,8 +24,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.crumble.helpplus.Model.User;
 import com.crumble.helpplus.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,20 +72,33 @@ public class ProfileActivity extends AppCompatActivity {
         gradeText=(TextView)this.findViewById(R.id.gradeText);
         idText=(TextView)this.findViewById(R.id.idText);
 
-        if(getConnectedUser().getImage()=="null")
-            profileIcon.setImageResource(R.drawable.profile_base);
-        else {
-            Thread t = new Thread(() -> {
-                profileImage = LoadImageFromWebOperations(getConnectedUser().getImage());
-                profileIcon.post(() -> {
-                    profileIcon.setImageDrawable(profileImage);
-                });
-            });
-            t.start();
-        }
+        setProfPic();
+
         usernameText.setText(getConnectedUser().getNickname());
         gradeText.setText(gradeText.getText()+" "+(((Double)getConnectedUser().getAverageGrade()).toString()));
         idText.setText(idText.getText()+" "+(((Integer)getConnectedUser().getId()).toString())+"  ");
+
+    }
+
+    public void setProfPic()
+    {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference islandRef = storageRef.child(getConnectedUser().getImage());
+
+        final long TEN_MEGABYTE = 1024 * 1024 * 10;
+        islandRef.getBytes(TEN_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                profileIcon.setImageBitmap(Bitmap.createScaledBitmap(bmp, profileIcon.getWidth(), profileIcon.getHeight(), false));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                profileIcon.setImageResource(R.drawable.profile_base);
+            }
+        });
 
     }
 
