@@ -48,5 +48,17 @@
     <string name="profile_text_name_1"></string>
     <string name="profile_average_grade_1">Media notelor:</string>
     <string name="profile_button_back_1">Back</string>
-
+    <string name="questions_activity_title">Intrebari\nSituatii</string>
+    <string name="questions_goto_home">Back</string>
+    <string name="routines_activity_title">Rutine</string>
+    <string name="routines_goto_home">Back</string>
+    <string name="quizes_activity_title">Quiz-uri</string>
+    <string name="quiz_today_button">QUIZ-UL ZILEI</string>
+    <string name="quizes_all_button">TOATE QUIZ-URILE</string>
+    <string name="quizes_goto_home">Back</string>
+    <string name="quiz_activity_title">Quiz-uri</string>
+    <string name="quizes_goto_quizpage">Back</string>
+    <string name="question_activity_title">Quiz</string>
+    <string name="question_goto_quizes">Back</string>
+    <string name="question_text">Intrebare</string>
 </resources>

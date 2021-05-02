@@ -91,4 +91,19 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent=new Intent(this,ProfileActivity.class);
         startActivity(intent);
     }
+    public void goToQuestions(View view)
+    {
+        Intent intent=new Intent(this,QuestionsActivity.class);
+        startActivity(intent);
+    }
+    public void goToRoutines(View view)
+    {
+        Intent intent=new Intent(this,RoutinesActivity.class);
+        startActivity(intent);
+    }
+    public void goToQuizes(View view)
+    {
+        Intent intent=new Intent(this,QuizActivity.class);
+        startActivity(intent);
+    }
 }
