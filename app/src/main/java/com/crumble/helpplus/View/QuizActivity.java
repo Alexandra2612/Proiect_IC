@@ -2,11 +2,14 @@ package com.crumble.helpplus.View;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -16,6 +19,10 @@ import com.android.volley.toolbox.Volley;
 import com.crumble.helpplus.Model.Quiz;
 import com.crumble.helpplus.Model.User;
 import com.crumble.helpplus.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +39,7 @@ import javax.net.ssl.X509TrustManager;
 
 import static com.crumble.helpplus.Model.Quiz.getSelectedQuiz;
 import static com.crumble.helpplus.Model.Quiz.setSelectedQuiz;
+import static com.crumble.helpplus.Model.User.getConnectedUser;
 import static com.crumble.helpplus.Model.User.getFirebaseConnectedUser;
 import static com.crumble.helpplus.Model.User.setConnectedUser;
 import static com.crumble.helpplus.View.LoginActivity.IP;
@@ -47,9 +55,29 @@ public class QuizActivity extends AppCompatActivity {
         handleSSLHandshake();
         getDailyQuiz(queue);
         setContentView(R.layout.activity_quiz);
+        profileIcon5=(ImageView)findViewById(R.id.profileIcon5);
+        setProfPic();
 
-        profileIcon5=(ImageView)this.findViewById(R.id.profileIcon5);
-        profileIcon5.setImageResource(R.drawable.profile_base);
+    }
+
+    public void setProfPic() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference islandRef = storageRef.child(getConnectedUser().getImage());
+
+        final long TEN_MEGABYTE = 1024 * 1024 * 10;
+        islandRef.getBytes(TEN_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                profileIcon5.setImageBitmap(Bitmap.createScaledBitmap(bmp, profileIcon5.getWidth(), profileIcon5.getHeight(), false));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                profileIcon5.setImageResource(R.drawable.profile_base);
+            }
+        });
     }
 
     @Override

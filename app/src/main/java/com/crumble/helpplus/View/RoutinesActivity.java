@@ -1,13 +1,22 @@
 package com.crumble.helpplus.View;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.crumble.helpplus.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import static com.crumble.helpplus.Model.User.getConnectedUser;
 
 public class RoutinesActivity extends AppCompatActivity {
     private ImageView profileIcon4;
@@ -16,9 +25,29 @@ public class RoutinesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine);
+        profileIcon4=(ImageView)findViewById(R.id.profileIcon4);
+        setProfPic();
 
-        profileIcon4=(ImageView)this.findViewById(R.id.profileIcon4);
-        profileIcon4.setImageResource(R.drawable.profile_base);
+    }
+
+    public void setProfPic() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference islandRef = storageRef.child(getConnectedUser().getImage());
+
+        final long TEN_MEGABYTE = 1024 * 1024 * 10;
+        islandRef.getBytes(TEN_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                profileIcon4.setImageBitmap(Bitmap.createScaledBitmap(bmp, profileIcon4.getWidth(), profileIcon4.getHeight(), false));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                profileIcon4.setImageResource(R.drawable.profile_base);
+            }
+        });
     }
 
     @Override
