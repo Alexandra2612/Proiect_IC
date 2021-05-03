@@ -174,7 +174,7 @@ public class QuestionsActivity extends AppCompatActivity {
         setSelectedQuestion(question);
         setSelectedQuiz(quiz);
         setShowcase(true);
-        QuestionActivity.setBackClass(QuestionActivity.class);
+        QuestionActivity.setBackClass(QuestionsActivity.class);
         Intent intent=new Intent(this,QuestionActivity.class);
         startActivity(intent);
         Log.d("Quiz",getSelectedQuiz().toString());
