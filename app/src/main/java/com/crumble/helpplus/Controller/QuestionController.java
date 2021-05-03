@@ -56,7 +56,23 @@ public class QuestionController {
         queue.add(jsonArrayRequest);
     }
     public static void sendScore(QuestionActivity activity, RequestQueue queue, double score) {
+        String url ="https://"+IP+"/?action=send&object=quizscorebyid&id="+getConnectedUser().getId()+"&score="+score;
+        Log.d("Volley","Sending grade to mysql");
 
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.GET, url,
+                (String response) -> {
+                    if(response.equals("user grade sent successfully")) {
+                        Log.d("Volley", "user grade sent successfully");
+                        LoginController.setConnectedUserData(queue);
+                    }
+                    else {
+                        Log.d("Volley", response);
+                        Log.e("Volley", "User grade could not be sent to database");
+                    }
+                },
+                error -> {Log.e("Volley",error.getMessage());});
+        queue.add(stringRequest);
     }
 
 

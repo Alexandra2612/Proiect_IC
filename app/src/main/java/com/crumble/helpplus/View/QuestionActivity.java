@@ -89,13 +89,13 @@ public class QuestionActivity extends AppCompatActivity {
             buttonB.setText("");
             buttonC.setText("");
             buttonD.setText("");
-            questionTitleText.setText("FINAL SCORE:"+score+"/"+getSelectedQuiz().getQuestionno());
+            questionTitleText.setText("FINAL SCORE:"+((double)score)/questionNo*10);
             if(((double)score)/getSelectedQuiz().getQuestionno()>=0.66)
                 questionTitleText.append("\nCONGRATULATIONS!!!");
             else
                 questionTitleText.append("\nBETTER LUCK NEXT TIME :)");
             if(!training)
-                QuestionController.sendScore(this,queue,((double)score)/questionNo);
+                QuestionController.sendScore(this,queue,((double)score)/questionNo*10);
             (new Handler()).postDelayed(this::sendFinalScore, 3000);
             return;
         }
