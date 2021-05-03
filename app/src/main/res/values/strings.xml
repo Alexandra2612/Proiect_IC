@@ -61,4 +61,5 @@
     <string name="question_activity_title">Quiz</string>
     <string name="question_goto_quizes">Back</string>
     <string name="question_text">Intrebare</string>
+    <string name="question_score_text">score:0</string>
 </resources>
