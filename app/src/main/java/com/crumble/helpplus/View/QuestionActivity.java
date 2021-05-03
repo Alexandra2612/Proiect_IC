@@ -1,6 +1,7 @@
 package com.crumble.helpplus.View;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +34,7 @@ import static com.crumble.helpplus.Model.Quiz.getSelectedQuiz;
 
 public class QuestionActivity extends AppCompatActivity {
     private static boolean training;
+    private static boolean showcase;
     private RequestQueue queue;
     private ArrayList<Question> questions = new ArrayList<Question>();
     private Button buttonA;
@@ -44,29 +46,46 @@ public class QuestionActivity extends AppCompatActivity {
     private int score=0;
     private int questionNo=0;
     private String rightAnswer;
+    private static Class backClass;
+    public static void setShowcase(boolean showcase) {
+        QuestionActivity.showcase = showcase;
+    }
+
+    public static void setBackClass(Class backClass) {
+        QuestionActivity.backClass = backClass;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Log.d("Volley","1");
         queue = Volley.newRequestQueue(this);
-        Log.d("Volley","1");
         handleSSLHandshake();
-        Log.d("Volley","1");
-        QuestionController.populateQuestions(this,queue,getSelectedQuiz().getId());
-        Log.d("Volley","1");
+        if(!showcase)
+            QuestionController.populateQuestions(this,queue,getSelectedQuiz().getId());
+        else
+            addQuestion(Question.getSelectedQuestion());
         setContentView(R.layout.activity_question);
-        Log.d("Volley","1");
         buttonA = (Button)findViewById(R.id.answer1Button);
         buttonB = (Button)findViewById(R.id.answer2Button);
         buttonC = (Button)findViewById(R.id.answer3Button);
         buttonD = (Button)findViewById(R.id.answer4Button);
         questionTitleText= (TextView)findViewById(R.id.questionTitleText);
         questionScoreText= (TextView)findViewById(R.id.questionScoreText);
+        if(!showcase)
+          setAnswersClickable();
+        if(showcase){
+            setQuestion(0);
+            if(rightAnswer.equals("a"))
+                buttonA.setBackgroundColor(getResources().getColor(R.color.right_answer));
+            if(rightAnswer.equals("b"))
+                buttonB.setBackgroundColor(getResources().getColor(R.color.right_answer));
+            if(rightAnswer.equals("c"))
+                buttonC.setBackgroundColor(getResources().getColor(R.color.right_answer));
+            if(rightAnswer.equals("d"))
+                buttonD.setBackgroundColor(getResources().getColor(R.color.right_answer));
+        }
 
-        setAnswersClickable();
-        Log.d("Volley","1");
     }
 
     @Override
@@ -110,7 +129,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     public void goToQuizes(View view)
     {
-        Intent intent=new Intent(this,QuizActivity.class);
+        Intent intent=new Intent(this,backClass);
         startActivity(intent);
     }
 

@@ -161,6 +161,7 @@ public class RoutinesActivity extends AppCompatActivity {
     public void goToQuestion(Quiz quiz){
         setSelectedQuiz(quiz);
         setTraining(true);
+        QuestionActivity.setBackClass(RoutinesActivity.class);
         Intent intent=new Intent(this,QuestionActivity.class);
         startActivity(intent);
         Log.d("Quiz",getSelectedQuiz().toString());

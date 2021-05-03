@@ -101,6 +101,7 @@ public class QuizActivity extends AppCompatActivity {
         if(getSelectedQuiz()==null)
             return;
         QuestionActivity.setTraining(false);
+        QuestionActivity.setBackClass(QuizActivity.class);
         Intent intent=new Intent(this,QuestionActivity.class);
         startActivity(intent);
     }

@@ -166,6 +166,7 @@ public class QuizesActivity extends AppCompatActivity {
     public void goToQuestion(Quiz quiz){
         setSelectedQuiz(quiz);
         setTraining(false);
+        QuestionActivity.setBackClass(QuizesActivity.class);
         Intent intent=new Intent(this,QuestionActivity.class);
         startActivity(intent);
         Log.d("Quiz",getSelectedQuiz().toString());
