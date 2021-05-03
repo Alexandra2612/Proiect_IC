@@ -1,6 +1,7 @@
 package com.crumble.helpplus.Model;
 
 public class Question {
+    private static Question selectedQuestion=null;
     private int id;
     private String title;
     private String varA;
@@ -19,6 +20,14 @@ public class Question {
         this.varC = varC;
         this.varD = varD;
         this.raspunsCorect = raspunsCorect;
+    }
+
+    public static Question getSelectedQuestion() {
+        return selectedQuestion;
+    }
+
+    public static void setSelectedQuestion(Question selectedQuestion) {
+        Question.selectedQuestion = selectedQuestion;
     }
 
     public int getId() {

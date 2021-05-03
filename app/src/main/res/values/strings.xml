@@ -48,7 +48,7 @@
     <string name="profile_text_name_1"></string>
     <string name="profile_average_grade_1">Media notelor:</string>
     <string name="profile_button_back_1">Back</string>
-    <string name="questions_activity_title">Intrebari\nSituatii</string>
+    <string name="questions_activity_title">Intrebari/Situatii</string>
     <string name="questions_goto_home">Back</string>
     <string name="routines_activity_title">Rutine</string>
     <string name="routines_goto_home">Back</string>
