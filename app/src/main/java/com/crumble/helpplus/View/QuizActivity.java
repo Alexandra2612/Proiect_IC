@@ -72,6 +72,7 @@ public class QuizActivity extends AppCompatActivity {
     {
         if(getSelectedQuiz()==null)
             return;
+        QuestionActivity.setTraining(false);
         Intent intent=new Intent(this,QuestionActivity.class);
         startActivity(intent);
     }
