@@ -42,7 +42,7 @@ import static com.crumble.helpplus.View.LoginActivity.IP;
 
 public class FriendsActivity extends AppCompatActivity {
     private RequestQueue queue;
-    private LinearLayout friendsList;
+    public LinearLayout friendsList;
     public static User friendUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
